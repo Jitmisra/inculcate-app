@@ -79,7 +79,7 @@ const EmailLogin = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'https://app.error6o6.tech/api/consumer/v1/auth/',
+        'https://rail.app.error6o6.tech/api/consumer/v1/auth/',
         { email, password },
         { timeout: 5000 }
       );

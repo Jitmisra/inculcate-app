@@ -142,7 +142,7 @@ const LongPage = ({ route }) => {
           return;
         }
         console.log('Retrieved token:', token);
-        const url = `https://app.error6o6.tech/api/consumer/v1/article/long/${id}`;
+        const url = `https://rail.app.error6o6.tech/api/consumer/v1/article/long/${id}`;
         console.log('Request URL:', url);
         const response = await axios.get(url, {
           headers: {

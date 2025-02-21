@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginHorizontal: 16,
     marginTop: 1,
-    marginBottom: 6, // added marginBottom padding under the search box
+    marginBottom: 6, 
     paddingHorizontal: 16,
     backgroundColor: '#FFFFFF',
     fontSize: wp(4),
@@ -168,7 +168,7 @@ const Search = () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const response = await axios.get(
-        'https://app.error6o6.tech/api/consumer/v1/article/short',
+        'https://rail.app.error6o6.tech/api/consumer/v1/article/short',
         {
           headers: { Authorization: `Bearer ${token}` }
         }

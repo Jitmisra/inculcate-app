@@ -4,11 +4,12 @@ import Login from '../screens/UnusedScreen/Login';
 
 import Homescreen from '../screens/HomeScreen';
 import Explore from '../screens/Explore';
-import Upload from '../screens/Upload';
+
 import Profile from '../screens/Profile';
 
 import SwipePage from '../screens/Swiper';
 import Search from '../screens/Search';
+import Upload from '../screens/Contact';
 
 import Swiper2 from '../screens/Swiper2';
 import LongPage from '../screens/longpage';
@@ -27,10 +28,10 @@ export default function AppNavigation() {
           headerShown: false,}}>      
         <Stack.Screen name="EmailLogin" component={EmailLogin} />
         <Stack.Screen name="Swiper2" component={Swiper2} />
+        <Stack.Screen name="Upload" component={Upload} />
         <Stack.Screen name="SwipePage" component={SwipePage} />
         <Stack.Screen name="Homescreen" component={Homescreen} />
         <Stack.Screen name="Explore" component={Explore} />
-        <Stack.Screen name="Upload" component={Upload} />
         <Stack.Screen name="Profile" component={Profile} />
         {/* <Stack.Screen name="Home" component={Login} /> */}
         <Stack.Screen name="Search" component={Search} />

@@ -324,14 +324,14 @@ const styles = StyleSheet.create({
     numberOfLines: 2,
     ellipsizeMode: 'tail',
     adjustsFontSizeToFit: true,
-    minimumFontScale: 0.7 // Adjust this value as needed
+    minimumFontScale: 0.7 
   },
     descriptionContainer: {
       width: wp(90),
       height: "42%",
       position: 'absolute',
       top: hp(42),
-      overflow: 'hidden' // Add this to prevent text overflow
+      overflow: 'hidden' 
     },
     description: {
       fontSize: responsiveFontSize(15.5),
@@ -374,7 +374,7 @@ const SwipePage2 = () => {
       try {
         const token = await AsyncStorage.getItem('userToken');
         if (!token) throw new Error('No token available');
-        const response = await axios.get('https://app.error6o6.tech/api/consumer/v1/article/short', {
+        const response = await axios.get('https://rail.app.error6o6.tech/api/consumer/v1/article/short', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const capsuleArray = response.data?.knowledge_capsule || [];
@@ -482,8 +482,8 @@ const SwipePage2 = () => {
                                     <Text
                                                           style={styles.description}
                                                           adjustsFontSizeToFit={true}
-                                                          numberOfLines={Math.floor(hp(42) * 0.8)} // Dynamically calculate number of lines based on container height
-                                                          minimumFontScale={0.5} // This will allow text to shrink to 50% of original size if needed
+                                                          numberOfLines={Math.floor(hp(42) * 0.8)} 
+                                                          minimumFontScale={0.5} 
                                                         >
                                        {removeStars(item.description2) || 'No Description Available'}
                                      </Text>

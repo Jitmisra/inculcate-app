@@ -12,6 +12,7 @@ import {
     RefreshControl,
     StyleSheet,
     Dimensions,
+    ActivityIndicator, // Add ActivityIndicator import here
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -72,7 +73,7 @@ const TrendingCard = ({ image, title, description, onPress }) => {
 // Update the fetchBatchData function to get all articles without pagination
 const fetchBatchData = async (token) => {
     const response = await axios.get(
-        'https://app.error6o6.tech/api/consumer/v1/home_page/',
+        'https://rail.app.error6o6.tech/api/consumer/v1/home_page/',
         {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -131,6 +132,21 @@ const Homescreen = () => {
     const [refreshing, setRefreshing] = useState(false);
     const [userName, setUserName] = useState(''); // State to store the user's first name
 
+    // Load cached trending cards on mount
+    useEffect(() => {
+        const loadCachedTrending = async () => {
+            try {
+                const cachedTrending = await AsyncStorage.getItem('cachedTrending');
+                if (cachedTrending) {
+                    setTrendingData(JSON.parse(cachedTrending));
+                }
+            } catch (error) {
+                console.error('Error loading cached trending data:', error);
+            }
+        };
+        loadCachedTrending();
+    }, []);
+
     // Fetch and set the user name (first word only)
     useEffect(() => {
         const getUserName = async () => {
@@ -159,7 +175,11 @@ const Homescreen = () => {
             console.log('Total articles fetched:', allArticles.length);
             
             setArticles(allArticles);
-            setTrendingData(allArticles); // Show all articles in trending
+            // Save the top 5 articles to AsyncStorage and update the trending view
+            const top5Articles = allArticles.slice(0, 5);
+            setTrendingData(top5Articles);
+            
+            await AsyncStorage.setItem('cachedTrending', JSON.stringify(top5Articles));
         } catch (error) {
             console.error('Error fetching articles:', error);
         }
@@ -277,22 +297,25 @@ const Homescreen = () => {
 
                         {/* Trending Section */}
                         <View style={styles.trendingSection}>
-                            {/* <Text style={styles.trendingTitle}>Trending Now</Text> */}
-                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                {trendingData.map((item, index) => (
-                                    <TrendingCard
-                                        key={index}
-                                        image={item.image}
-                                        title={item.title}
-                                        description={item.description}
-                                        onPress={() =>
-                                            navigation.navigate('SwipePage', {
-                                                articleId: item.id
-                                            })
-                                        }
-                                    />
-                                ))}
-                            </ScrollView>
+                            {trendingData.length === 0 ? (
+                                <ActivityIndicator size="large" color="#FF6A34" style={{ marginVertical: 20 }} />
+                            ) : (
+                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                    {trendingData.map((item, index) => (
+                                        <TrendingCard
+                                            key={index}
+                                            image={item.image}
+                                            title={item.title}
+                                            description={item.description}
+                                            onPress={() =>
+                                                navigation.navigate('SwipePage', {
+                                                    articleId: item.id
+                                                })
+                                            }
+                                        />
+                                    ))}
+                                </ScrollView>
+                            )}
                         </View>
 
                         {/* Explore Topics Section */}
