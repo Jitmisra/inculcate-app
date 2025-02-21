@@ -161,7 +161,7 @@ const Search = () => {
     'MonaSans-SemiBold': require('../assets/fonts/MonaSans-SemiBold.ttf'),
   });
 
-  // Returns the current list of articles for caching.
+
   const prevCachedArticles = () => articles;
 
   const fetchAllArticles = async () => {
@@ -174,7 +174,7 @@ const Search = () => {
         }
       );
       const capsuleArray = response.data.knowledge_capsule;
-      // Map the entire capsuleArray to your article data structure
+ 
       const allArticles = capsuleArray.map((item) => ({
         id: item.id,
         category: item.category,
@@ -187,7 +187,7 @@ const Search = () => {
       }));
       setArticles(allArticles);
       setFilteredArticles(allArticles);
-      // Optionally cache allArticles if needed
+
       AsyncStorage.setItem('cachedArticles', JSON.stringify(allArticles.slice(-10)));
     } catch (error) {
       console.error('Error fetching articles:', error);
